@@ -3,7 +3,7 @@ import WatchJS from 'melanke-watchjs';
 /**
  * State Object for this component
  */
-let componentData = {
+let data = {
 	menuOpen: false,
 	menuToggle: document.getElementById( 'toggle' ),
 	loading: false,
@@ -13,54 +13,43 @@ let componentData = {
 /**
  * Watch the state loading object for changes
  */
-WatchJS.watch( componentData, "loading", () => {
-
-	loadingHelper( document.getElementById( 'load' ) );
-
-} );
+WatchJS.watch( data, "loading", () => { data.loading ? loadingYes( data.loadingTarget ) : loadingNo( data.loadingTarget ) } );
 
 /**
  * Watch the state loading object for changes
  */
-WatchJS.watch( componentData, "menuOpen", () => {
-
-	if ( false === componentData.menuOpen ) {
-		menuClose( componentData.menuToggle );
-	} else {
-		menuOpen( componentData.menuToggle );
-	}
-
-} );
+WatchJS.watch( data, "menuOpen", () => { data.menuOpen ? menuOpen( data.menuToggle ) : menuClose( data.menuToggle ) } );
 
 /**
  * Fetch Data
  */
 fetch( 'https://baconipsum.com/api/?type=meat-and-filler' )
 	.then( function( response ) {
-		componentData.loading = true;
+		data.loading = true;
 		return response.json();
 	})
 	.catch( function( error ) {
 		console.log( error.message );
 	} )
 	.then( function( response ) {
-		componentData.loading = false;
-		componentData.loadingTarget.innerHTML = response;
+		data.loading = false;
+		data.loadingTarget.innerHTML = response;
 	});
 
 /**
  * Adding loading attrs to sync DOM elements
  */
-function loadingHelper( el ) {
+function loadingYes( el ) {
+	el.setAttribute( 'aria-busy', 'true');
+	el.setAttribute( 'aria-label', 'Loading Content, please wait.');
+}
 
-	if ( true === componentData.loading ) {
-		el.setAttribute( 'aria-busy', 'true');
-		el.setAttribute( 'aria-label', 'Loading Content, please wait.');
-	} else {
-		el.setAttribute( 'aria-busy', 'false');
-		el.removeAttribute( 'aria-label' );
-	}
-	
+/**
+ * Removing loading attrs to sync DOM elements
+ */
+function loadingNo( el ) {
+	el.setAttribute( 'aria-busy', 'false');
+	el.removeAttribute( 'aria-label' );
 }
 
 /**
@@ -88,12 +77,12 @@ function menuClose( el ) {
 /**
  * Menu click event
  */
-componentData.menuToggle.addEventListener( 'click', () => {
+data.menuToggle.addEventListener( 'click', () => {
 
-	if ( true === componentData.menuOpen ) {
-		componentData.menuOpen = false;
+	if ( true === data.menuOpen ) {
+		data.menuOpen = false;
 	} else {
-		componentData.menuOpen = true;
+		data.menuOpen = true;
 	}
 
 } );
