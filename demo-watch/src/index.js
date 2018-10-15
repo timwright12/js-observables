@@ -3,15 +3,17 @@ import WatchJS from 'melanke-watchjs';
 /**
  * State Object for this component
  */
-let state = {
+let componentData = {
+	menuOpen: false,
+	menuToggle: document.getElementById( 'toggle' ),
 	loading: false,
-	menuOpen: false
+	loadingTarget: document.getElementById( 'load' )
 };
 
 /**
  * Watch the state loading object for changes
  */
-WatchJS.watch( state, "loading", function() {
+WatchJS.watch( componentData, "loading", () => {
 
 	loadingHelper( document.getElementById( 'load' ) );
 
@@ -20,14 +22,12 @@ WatchJS.watch( state, "loading", function() {
 /**
  * Watch the state loading object for changes
  */
-WatchJS.watch( state, "menuOpen", function() {
-	
-	const button = document.getElementById( 'toggle' );
-	
-	if ( false === state.menuOpen ) {
-		menuClose( button );
+WatchJS.watch( componentData, "menuOpen", () => {
+
+	if ( false === componentData.menuOpen ) {
+		menuClose( componentData.menuToggle );
 	} else {
-		menuOpen( button );
+		menuOpen( componentData.menuToggle );
 	}
 
 } );
@@ -35,17 +35,17 @@ WatchJS.watch( state, "menuOpen", function() {
 /**
  * Fetch Data
  */
-fetch('https://baconipsum.com/api/?type=meat-and-filler')
+fetch( 'https://baconipsum.com/api/?type=meat-and-filler' )
 	.then( function( response ) {
-		state.loading = true;
+		componentData.loading = true;
 		return response.json();
 	})
 	.catch( function( error ) {
 		console.log( error.message );
 	} )
 	.then( function( response ) {
-		state.loading = false;
-		document.getElementById( 'load' ).innerHTML = response;
+		componentData.loading = false;
+		componentData.loadingTarget.innerHTML = response;
 	});
 
 /**
@@ -53,7 +53,7 @@ fetch('https://baconipsum.com/api/?type=meat-and-filler')
  */
 function loadingHelper( el ) {
 
-	if ( true === state.loading ) {
+	if ( true === componentData.loading ) {
 		el.setAttribute( 'aria-busy', 'true');
 		el.setAttribute( 'aria-label', 'Loading Content, please wait.');
 	} else {
@@ -62,19 +62,6 @@ function loadingHelper( el ) {
 	}
 	
 }
-
-/**
- * Menu click event
- */
-document.getElementById( 'toggle' ).addEventListener( 'click', () => {
-
-	if ( true === state.menuOpen ) {
-		state.menuOpen = false;
-	} else {
-		state.menuOpen = true;
-	}
-
-});
 
 /**
  * Open Menu
@@ -97,3 +84,16 @@ function menuClose( el ) {
 	menu.setAttribute( 'aria-hidden', 'true' );
 	el.focus();
 }
+
+/**
+ * Menu click event
+ */
+componentData.menuToggle.addEventListener( 'click', () => {
+
+	if ( true === componentData.menuOpen ) {
+		componentData.menuOpen = false;
+	} else {
+		componentData.menuOpen = true;
+	}
+
+} );
