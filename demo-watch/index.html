@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Object Watcher Test</title>
+		
+		<style>
+			[aria-busy="true"] {
+				background: pink;
+				min-height: 100px;
+			}
+			
+			[aria-busy="false"] {
+				background: orange;
+				min-height: 150px;
+			}
+			
+			[aria-hidden="true"] {
+				display: none;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<button type="button" id="toggle" aria-controls="menu">Menu</button>
+		<div id="menu" aria-hidden="true"> <!-- Don't actually do this, aria-hidden should be set with JS -->
+			<a href="#!">Menu Item 1</a>
+			<a href="#!">Menu Item 2</a>
+			<a href="#!">Menu Item 3</a>
+		</div>
+		<div id="load" aria-atomic="true" aria-live="polite"></div><!--/#load-->
+		<script src="dist/index.min.js"></script>
+	</body>
+</html>
