@@ -4,13 +4,12 @@ import ExtractTextPlugin from 'mini-css-extract-plugin';
 import postcssPresetEnv from 'postcss-preset-env';
 import SpriteLoaderPlugin from 'svg-sprite-loader/plugin';
 
-const DIST_PATH = path.resolve( './assets/dist' );
+const DIST_PATH = path.resolve( './dist' );
 
 const config = {
 	cache: true,
 	entry: {
-		proxy: './demo-proxy/index.js',
-		watch: './demo-watch/index.js',
+		proxy: './src/index.js',
 	},
 	output: {
 		path: DIST_PATH,
