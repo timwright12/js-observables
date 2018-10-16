@@ -1,7 +1,9 @@
 import WatchJS from 'melanke-watchjs';
 
 const init = () => {
-
+	
+	const watch = WatchJS.watch;
+	
 	/**
 	 * State Object for this component
 	 */
@@ -13,7 +15,7 @@ const init = () => {
 	/**
 	 * Watch the state loading object for changes
 	 */
-	WatchJS.watch( data, "loading", () => { data.loading ? loadingYes( data.loadingTarget ) : loadingNo( data.loadingTarget ) } );
+	watch( data, "loading", () => { data.loading ? loadingYes( data.loadingTarget ) : loadingNo( data.loadingTarget ) } );
 	
 	/**
 	 * Fetch Data
