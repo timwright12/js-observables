@@ -1,0 +1,1 @@
+This will be a test to see if we can use observables to manage state between two separate components. Have a parent class and 2 children. Host the main state in the parent, update from the child, watch from the other child and see the reaction.
