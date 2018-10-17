@@ -1,6 +1,6 @@
 export default {
-    items: [
-        'I made this',
-        'Another thing'
-    ]
+	items: [
+		'I made this',
+		'Another thing'
+	]
 };
