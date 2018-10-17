@@ -3,7 +3,7 @@ export default class PubSub {
 		this.events = {};
 	}
 
-	/**
+    /**
      * Either create a new event instance for passed `event` name
      * or push a new callback into the existing collection
      *
@@ -27,7 +27,7 @@ export default class PubSub {
 		return self.events[event].push( callback );
 	}
 
-	/**
+    /**
      * If the passed event has callbacks attached to it, loop through each one
      * and call it
      *
