@@ -6,7 +6,7 @@ const DIST_PATH = path.resolve( './dist' );
 const config = {
 	cache: true,
 	entry: {
-		index: './src/index.js',
+		index: './src/js/main.js',
 	},
 	output: {
 		path: DIST_PATH,
